@@ -12,7 +12,7 @@ import client from "@/public/api/client";
 const slides = [
   {
     id: 1,
-    title: "Grab up to 35% off on your favorite Destination",
+    title: "Монгол орны үзэсгэлэнт байгальд бид танийг хөтлөх болно ",
     text: "Limited time offer, don't miss the opportunity",
     buttonText: "Book Now",
     imageSrc: "/img/hero/2/1.png",
@@ -142,70 +142,72 @@ export default function Hero2() {
                   },
                 }}
               >
-                {data != null && data != ""
-                  ? data.map((elm, i) => (
-                      <SwiperSlide key={i}>
-                        <div className="hero__slide swiper-slide">
-                          <div className="hero__content">
-                            <h1
-                              className="hero__title"
-                              data-aos="fade-up"
-                              data-aos-delay="300"
-                            >
-                              {elm.title}
-                            </h1>
+                {slides.map((elm, i) => (
+                  <SwiperSlide key={i}>
+                    <div className="hero__slide swiper-slide font">
+                      <div className="hero__content">
+                        <h1
+                          className="hero__title"
+                          data-aos="fade-up"
+                          data-aos-delay="300"
+                        >
+                          Монгол орны
+                          <br />
+                          үзэсгэлэнт байгальд
+                          <br />
+                          бид танийг хөтлөх болно
+                        </h1>
 
-                            <p
-                              className="hero__text"
-                              data-aos="fade-up"
-                              data-aos-delay="350"
-                            >
-                              {elm.miniTitle}
-                              {console.log(elm)}
-                            </p>
+                        <p
+                          className="hero__text"
+                          data-aos="fade-up"
+                          data-aos-delay="350"
+                        >
+                          Та зөвхөн өөрийгөө болон гэр бүлээ авч явахад
+                          хангалттай
+                        </p>
 
-                            <button
-                              data-aos="fade-right"
-                              data-aos-delay="200"
-                              className="button -md -green-2 bg-white text-accent-1 mt-30"
-                            >
-                              <Link href="/tour-list-1">
-                                <span>Захиалах</span>
-                                <i className="icon-arrow-top-right ml-10"></i>
-                              </Link>
-                            </button>
-                          </div>
+                        <button
+                          data-aos="fade-right"
+                          data-aos-delay="200"
+                          className="button -md -green-2 bg-white text-accent-12 mt-30"
+                        >
+                          <Link href="/tour-list-1">
+                            <span>Дэлгэрэнгүй</span>
+                            <i className="icon-arrow-top-right ml-10"></i>
+                          </Link>
+                        </button>
+                      </div>
 
-                          <div className="hero__image">
-                            <div className="hero__image_shape">
-                              <Image
-                                width="40"
-                                height="500"
-                                src="/img/hero/2/shape.svg"
-                                alt="image"
-                              />
-                            </div>
-
-                            <div className="hero__image_mobileShape">
-                              <Image
-                                width="847"
-                                height="40"
-                                src="/img/hero/2/shape2.svg"
-                                alt="image"
-                              />
-                            </div>
-
-                            <Image
-                              width={630}
-                              height={500}
-                              src={elm.imageUrl}
-                              alt="image"
-                            />
-                          </div>
+                      <div className="hero__image">
+                        <div className="hero__image_shape">
+                          <Image
+                            width="40"
+                            height="500"
+                            src="/img/hero/2/shape.svg"
+                            alt="image"
+                          />
                         </div>
-                      </SwiperSlide>
-                    ))
-                  : ""}
+
+                        <div className="hero__image_mobileShape">
+                          <Image
+                            width="847"
+                            height="40"
+                            src="/img/hero/2/shape2.svg"
+                            alt="image"
+                          />
+                        </div>
+
+                        <Image
+                          width={630}
+                          height={500}
+                          src="/img/hero/2/1.png"
+                          alt="image"
+                        />
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>
