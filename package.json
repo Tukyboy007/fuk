@@ -27,5 +27,8 @@
     "sanity": "^3.36.0",
     "styled-components": "^6.1.8",
     "swiper": "^11.0.3"
+  },
+  "devDependencies": {
+    "typescript": "5.4.4"
   }
 }

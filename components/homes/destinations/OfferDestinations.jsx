@@ -1,9 +1,20 @@
+"use client";
 import { destinationOffers } from "@/data/destinations";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import client from "@/public/api/client";
 
 export default function OfferDestinations() {
+  const [data, setData] = useState("");
+  useEffect(() => {
+    client
+      .fetch(
+        '*[_type == "HomeSpecialOffer"]{"imageUrl":offerImage.asset->url,offerTitle,offerMiniTitle}'
+      )
+      .then((result) => setData(result))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
   return (
     <section className="layout-pt-xl roboto-regular">
       <div className="container">
@@ -32,29 +43,33 @@ export default function OfferDestinations() {
           data-aos-delay=""
           className="row y-gap-20 pt-40"
         >
-          {destinationOffers.map((elm, i) => (
-            <div key={i} className="col-xl-3 col-lg-4 col-sm-6">
-              <Link
-                href="/tour-list-1"
-                className="d-flex items-center -hover-image-scale"
-              >
-                <div className="size-100 -hover-image-scale__image rounded-full">
-                  <Image
-                    width={260}
-                    height={260}
-                    src={elm.imageSrc}
-                    alt="image"
-                    className="img-cover rounded-full"
-                  />
-                </div>
+          {data != "" && data != undefined
+            ? data.map((elm, i) => (
+                <div key={i} className="col-xl-3 col-lg-4 col-sm-6">
+                  <Link
+                    href="/tour-list-1"
+                    className="d-flex items-center -hover-image-scale"
+                  >
+                    <div className="size-100 -hover-image-scale__image rounded-full">
+                      <Image
+                        width={260}
+                        height={260}
+                        src={elm.imageUrl}
+                        alt="image"
+                        className="img-cover rounded-full"
+                      />
+                    </div>
 
-                <div className="ml-20">
-                  <div className="text-accent-1">{elm.subtitle}</div>
-                  <h4 className="text-15 fw-500 mt-5">{elm.title}</h4>
+                    <div className="ml-20">
+                      <div className="text-accent-1">{elm.offerTitle}</div>
+                      <h4 className="text-15 fw-500 mt-5">
+                        {elm.offerMiniTitle}
+                      </h4>
+                    </div>
+                  </Link>
                 </div>
-              </Link>
-            </div>
-          ))}
+              ))
+            : ""}
         </div>
       </div>
     </section>

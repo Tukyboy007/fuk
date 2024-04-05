@@ -1,7 +1,4 @@
 "use client";
-import Calender from "@/components/common/dropdownSearch/Calender";
-import Location from "@/components/common/dropdownSearch/Location";
-import TourType from "@/components/common/dropdownSearch/TourType";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,72 +6,8 @@ import { Navigation, Pagination } from "swiper/modules";
 import Link from "next/link";
 import client from "@/public/api/client";
 
-const slides = [
-  {
-    id: 1,
-    title: "Монгол орны үзэсгэлэнт байгальд бид танийг хөтлөх болно ",
-    text: "Limited time offer, don't miss the opportunity",
-    buttonText: "Book Now",
-    imageSrc: "/img/hero/2/1.png",
-  },
-  {
-    id: 2,
-    title: "Explore Exotic Beaches and Resorts",
-    text: "Discover paradise on Earth with our exclusive beach destinations.",
-    buttonText: "Explore Now",
-    imageSrc: "/img/hero/2/2.png",
-  },
-  {
-    id: 3,
-    title: "Adventure Awaits in the Mountains",
-    text: "Embark on thrilling mountain adventures with unbeatable discounts.",
-    buttonText: "Book Your Adventure",
-    imageSrc: "/img/hero/2/3.png",
-  },
-  {
-    id: 4,
-    title: "Cruise into the Sunset",
-    text: "Sail away on a memorable cruise experience with huge discounts.",
-    buttonText: "Book Your Cruise",
-    imageSrc: "/img/hero/2/4.png",
-  },
-  {
-    id: 5,
-    title: "Discover Historic Cities",
-    text: "Experience the charm of historic cities with our special offers.",
-    buttonText: "Explore History",
-    imageSrc: "/img/hero/2/5.png",
-  },
-  // Add more slide objects as needed
-];
-
 export default function Hero2() {
-  const [currentActiveDD, setCurrentActiveDD] = useState("");
-  const [location, setLocation] = useState("");
-  const [calender, setCalender] = useState("");
-  const [tourType, setTourType] = useState("");
   const [data, setData] = useState("");
-  useEffect(() => {
-    setCurrentActiveDD("");
-  }, [location, calender, tourType, setCurrentActiveDD]);
-
-  const dropDownContainer = useRef();
-  useEffect(() => {
-    const handleClick = (event) => {
-      if (
-        dropDownContainer.current &&
-        !dropDownContainer.current.contains(event.target)
-      ) {
-        setCurrentActiveDD("");
-      }
-    };
-
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
 
   useEffect(() => {
     client
@@ -84,7 +17,6 @@ export default function Hero2() {
       .then((result) => setData(result))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-  console.log(data);
   return (
     <section className="hero -type-2">
       <div className="hero__shape">
@@ -104,10 +36,8 @@ export default function Hero2() {
       </div>
 
       <div className="container">
-        <div ref={dropDownContainer} className="hero__filter"></div>
-
         <div className="hero__slider">
-          <div className="hero__bg bg-accent-1">
+          <div className="hero__bg ">
             <Image
               width={973}
               height={500}
@@ -142,72 +72,69 @@ export default function Hero2() {
                   },
                 }}
               >
-                {slides.map((elm, i) => (
-                  <SwiperSlide key={i}>
-                    <div className="hero__slide swiper-slide font">
-                      <div className="hero__content">
-                        <h1
-                          className="hero__title"
-                          data-aos="fade-up"
-                          data-aos-delay="300"
-                        >
-                          Монгол орны
-                          <br />
-                          үзэсгэлэнт байгальд
-                          <br />
-                          бид танийг хөтлөх болно
-                        </h1>
+                {data != "" && data != null
+                  ? data.map((elm, i) => (
+                      <SwiperSlide key={i}>
+                        <div className="hero__slide swiper-slide font">
+                          <div className="hero__content">
+                            <h1
+                              className="hero__title"
+                              data-aos="fade-up"
+                              data-aos-delay="300"
+                            >
+                              {elm.title}
+                            </h1>
 
-                        <p
-                          className="hero__text"
-                          data-aos="fade-up"
-                          data-aos-delay="350"
-                        >
-                          Та зөвхөн өөрийгөө болон гэр бүлээ авч явахад
-                          хангалттай
-                        </p>
+                            <p
+                              className="hero__text"
+                              data-aos="fade-up"
+                              data-aos-delay="350"
+                            >
+                              {elm.miniTitle}
+                            </p>
 
-                        <button
-                          data-aos="fade-right"
-                          data-aos-delay="200"
-                          className="button -md -green-2 bg-white text-accent-12 mt-30"
-                        >
-                          <Link href="/tour-list-1">
-                            <span>Дэлгэрэнгүй</span>
-                            <i className="icon-arrow-top-right ml-10"></i>
-                          </Link>
-                        </button>
-                      </div>
+                            <button
+                              data-aos="fade-right"
+                              data-aos-delay="200"
+                              className="button -md -green-2 bg-white text-accent-12 mt-30"
+                            >
+                              <Link href="/tour-list-1">
+                                <span>Дэлгэрэнгүй</span>
+                                <i className="icon-arrow-top-right ml-10"></i>
+                              </Link>
+                            </button>
+                          </div>
 
-                      <div className="hero__image">
-                        <div className="hero__image_shape">
-                          <Image
-                            width="40"
-                            height="500"
-                            src="/img/hero/2/shape.svg"
-                            alt="image"
-                          />
+                          <div className="hero__image">
+                            <div className="hero__image_shape">
+                              <Image
+                                width="40"
+                                height="500"
+                                src="/img/hero/2/shape.svg"
+                                alt="image"
+                              />
+                            </div>
+
+                            <div className="hero__image_mobileShape">
+                              <Image
+                                width="847"
+                                height="40"
+                                src="/img/hero/2/shape2.svg"
+                                alt="image"
+                              />
+                            </div>
+
+                            <Image
+                              width={1000}
+                              height={600}
+                              src={elm.imageUrl}
+                              alt="image"
+                            />
+                          </div>
                         </div>
-
-                        <div className="hero__image_mobileShape">
-                          <Image
-                            width="847"
-                            height="40"
-                            src="/img/hero/2/shape2.svg"
-                            alt="image"
-                          />
-                        </div>
-
-                        <Image
-                          width={630}
-                          height={500}
-                          src="/img/hero/2/1.png"
-                          alt="image"
-                        />
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
+                      </SwiperSlide>
+                    ))
+                  : ""}
               </Swiper>
             </div>
           </div>

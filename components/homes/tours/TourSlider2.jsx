@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { useEffect, useState, useRef } from "react";
@@ -8,11 +7,32 @@ import Stars from "@/components/common/Stars";
 import { filterTour } from "@/data/tours";
 import Image from "next/image";
 import Link from "next/link";
+import client from "@/public/api/client";
+
 const travelStayles = ["Fast", "Steady", "Furious", "Grind"];
 export default function TourSlider2() {
   const [ddActive, setDdActive] = useState(false);
   const [travelStyle, setTravelStyle] = useState("");
   const [filtered, setFiltered] = useState(filterTour);
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type == "Product" && featured == true]
+        {
+        "title":title,
+        "slug":slug.current,
+        "imageUrl":productImage[].asset->url,
+        "price":price,
+        "route":route,
+          "duration":duration,
+        }
+        `
+      )
+      .then((result) => setData(result))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
   useEffect(() => {
     setFiltered(filterTour);
   }, [travelStyle]);
@@ -56,6 +76,7 @@ export default function TourSlider2() {
               <Swiper
                 spaceBetween={30}
                 className="w-100"
+                loop="true"
                 navigation={{
                   prevEl: ".js-slider1-prev",
                   nextEl: ".js-slider1-next",
@@ -76,53 +97,57 @@ export default function TourSlider2() {
                   },
                 }}
               >
-                {filtered.map((elm, i) => (
-                  <SwiperSlide key={i}>
-                    <Link
-                      href={`/tour-single-1/${elm.id}`}
-                      className="tourCard -type-1 d-block border-1 bg-white hover-shadow-1 overflow-hidden rounded-12 bg-white -hover-shadow"
-                    >
-                      <div className="tourCard__header">
-                        <div className="tourCard__image ratio ratio-28:20">
-                          <Image
-                            width={421}
-                            height={301}
-                            src={elm.imageSrc}
-                            alt="image"
-                            className="img-ratio"
-                          />
-                        </div>
+                {data != "" && data != undefined
+                  ? data.map((elm, i) => (
+                      <SwiperSlide key={i}>
+                        <Link
+                          href={`/tour-single-1/${elm.slug}`}
+                          className="tourCard -type-1 d-block border-1 bg-white hover-shadow-1 overflow-hidden rounded-12 bg-white -hover-shadow font"
+                        >
+                          <div className="tourCard__header">
+                            <div className="tourCard__image ratio ratio-28:20">
+                              <Image
+                                width={421}
+                                height={301}
+                                src={elm.imageUrl[0]}
+                                alt="image"
+                                className="img-ratio"
+                              />
+                            </div>
 
-                        <button className="tourCard__favorite">
-                          <i className="icon-heart"></i>
-                        </button>
-                      </div>
-
-                      <div className="tourCard__content px-20 py-10">
-                        <div className="tourCard__location d-flex items-center text-13 text-light-2">
-                          <i className="icon-pin d-flex text-16 text-light-2 mr-5"></i>
-                          {elm.location}
-                        </div>
-
-                        <h3 className="tourCard__title text-16 fw-500 mt-5">
-                          <span>{elm.title}</span>
-                        </h3>
-
-                        <div className="d-flex justify-between items-center border-1-top text-13 text-dark-1 pt-10 mt-10">
-                          <div className="d-flex items-center">
-                            <i className="icon-clock text-16 mr-5"></i>
-                            {elm.duration}
+                            <button className="tourCard__favorite">
+                              <i className="icon-heart"></i>
+                            </button>
                           </div>
+                          <div className="tourCard__content px-20 py-10">
+                            <div className="tourCard__location d-flex items-center text-13 text-light-2">
+                              <i className="icon-pin d-flex text-16 text-light-2 mr-5 font">
+                                {elm.route}
+                              </i>
+                            </div>
 
-                          <div>
-                            From{" "}
-                            <span className="text-16 fw-500">${elm.price}</span>
+                            <h3 className="tourCard__title text-16 fw-500 mt-5">
+                              <span>{elm.title}</span>
+                            </h3>
+
+                            <div className="d-flex justify-between items-center border-1-top text-13 text-dark-1 pt-10 mt-10">
+                              <div className="d-flex items-center">
+                                <i className="icon-clock text-16 mr-5"></i>
+                                {elm.duration}
+                              </div>
+
+                              <div>
+                                Төлбөр{" "}
+                                <span className="text-16 fw-500">
+                                  ₮{elm.price}
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                ))}
+                        </Link>
+                      </SwiperSlide>
+                    ))
+                  : ""}
               </Swiper>
             </div>
           </div>

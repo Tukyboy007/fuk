@@ -1,10 +1,34 @@
+"use client";
+
 import { articles } from "@/data/articles";
 import { blogs } from "@/data/blogs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import client from "@/public/api/client";
+import { useEffect, useState } from "react";
 
 export default function ArticlesOne() {
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    client
+      .fetch(
+        `
+        *[_type == "Blog"]{
+          "imageUrl":productImage.asset->url,
+          "subImage":subImages[].asset->url,
+          "title":title,
+          "subTitle":subTitle,
+          "slug":slug.current,
+          "author":auther
+        }
+        `
+      )
+      .then((result) => setData(result))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+  console.log(data);
   return (
     <section className="layout-pt-xl layout-pb-xl font">
       <div className="container">
@@ -37,39 +61,40 @@ export default function ArticlesOne() {
           data-aos-delay=""
           className="row y-gap-30 pt-40 sm:pt-20"
         >
-          {blogs.slice(0, 3).map((elm, i) => (
-            <div key={i} className="col-lg-4 col-md-6">
-              <Link
-                href={`/blog-single/${elm.id}`}
-                className="blogCard -type-1"
-              >
-                <div className="blogCard__image ratio ratio-41:30">
-                  <Image
-                    width={616}
-                    height={451}
-                    src={elm.image}
-                    alt="image"
-                    className="img-ratio rounded-12"
-                  />
+          {data != undefined && data != ""
+            ? data.slice(0, 3).map((elm, i) => (
+                <div key={i} className="col-lg-4 col-md-6">
+                  <Link
+                    href={`/blog-single/${elm.slug}`}
+                    className="blogCard -type-1"
+                  >
+                    <div className="blogCard__image ratio ratio-41:30">
+                      <Image
+                        layout="fill"
+                        src={elm.imageUrl}
+                        alt="image"
+                        className="img-ratio rounded-12"
+                      />
 
-                  <div className="blogCard__badge">{elm.badge}</div>
+                      <div className="blogCard__badge">{elm.badge}</div>
+                    </div>
+
+                    <div className="blogCard__content mt-30">
+                      <div className="blogCard__info text-14">
+                        <div className="lh-13">{elm.date}</div>
+                        <div className="blogCard__line"></div>w
+                        <div className="lh-13">By {elm.author}</div>
+                      </div>
+
+                      <h3 className="blogCard__title text-18 fw-500 mt-10 text">
+                        {elm.title}
+                      </h3>
+                      <div className="lh-13">{elm.continent}</div>
+                    </div>
+                  </Link>
                 </div>
-
-                <div className="blogCard__content mt-30">
-                  <div className="blogCard__info text-14">
-                    <div className="lh-13">{elm.date}</div>
-                    <div className="blogCard__line"></div>
-                    <div className="lh-13">By {elm.author}</div>
-                  </div>
-
-                  <h3 className="blogCard__title text-18 fw-500 mt-10 text">
-                    {elm.title}
-                  </h3>
-                  <div className="lh-13">{elm.continent}</div>
-                </div>
-              </Link>
-            </div>
-          ))}
+              ))
+            : ""}
         </div>
       </div>
     </section>

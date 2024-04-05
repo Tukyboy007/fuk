@@ -1,9 +1,25 @@
+"use client";
+
 import { destinationsTwo } from "@/data/destinations";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import client from "@/public/api/client";
 
 export default function DestinationsTwo() {
+  const [data, setData] = useState("");
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type == "PlanedRoutes"]{
+          "imageUrl":productImage.asset->url,
+          "location":location,
+          "products":products
+        }`
+      )
+      .then((result) => setData(result))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
   return (
     <section className="layout-pt-xl font">
       <div className="container">
@@ -13,18 +29,6 @@ export default function DestinationsTwo() {
               Төлөвлөгдсөн аялалууд
             </h2>
           </div>
-
-          <div className="col-auto">
-            <Link
-              href={"/tour-list-1"}
-              data-aos="fade-right"
-              data-aos-delay=""
-              className="buttonArrow d-flex items-center "
-            >
-              <span>Дэлгэрэнгүй харах</span>
-              <i className="icon-arrow-top-right text-16 ml-10"></i>
-            </Link>
-          </div>
         </div>
 
         <div
@@ -32,24 +36,26 @@ export default function DestinationsTwo() {
           data-aos-delay=""
           className="row y-gap-30 justify-between xl:justify-center sm:justify-start pt-40 sm:pt-20 mobile-css-slider -w-160"
         >
-          {destinationsTwo.map((elm, i) => (
-            <div key={i} className="col-xl-2 col-lg-3 col-md-4 col-6">
-              <Link href="/tour-list-1" className="-hover-image-scale">
-                <div className="ratio ratio-19:21 rounded-12 -hover-image-scale__image">
-                  <Image
-                    width={260}
-                    height={260}
-                    src={elm.imgSrc}
-                    alt="image"
-                    className="img-ratio rounded-12"
-                  />
-                </div>
+          {data != "" && data != undefined
+            ? data.map((elm, i) => (
+                <div key={i} className="col-xl-2 col-lg-3 col-md-4 col-6">
+                  <Link href="/tour-list-1" className="-hover-image-scale">
+                    <div className="ratio ratio-19:21 rounded-12 -hover-image-scale__image">
+                      <Image
+                        width={500}
+                        height={500}
+                        src={elm.imageUrl}
+                        alt="image"
+                        className="img-ratio rounded-12"
+                      />
+                    </div>
 
-                <h3 className="text-18 fw-500 mt-20">{elm.title}</h3>
-                <p className="text-14">{elm.tours}+ Аялалууд</p>
-              </Link>
-            </div>
-          ))}
+                    <h3 className="text-18 fw-500 mt-20">{elm.location}</h3>
+                    <p className="text-14">{elm.products}+ Аялалууд</p>
+                  </Link>
+                </div>
+              ))
+            : ""}
         </div>
       </div>
     </section>

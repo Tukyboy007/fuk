@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Reviews from "./Reviews";
 import CommentBox from "./CommentBox";
 import Image from "next/image";
+import client from "@/public/api/client";
 
-export default function BlogSingle() {
+export default function BlogSingle({ slug }) {
+  const [data, setData] = useState("");
+
+  console.log(slug);
+  useEffect(() => {
+    client
+      .fetch(
+        `
+        *[_type == "Blog" && slug.current == '${slug}']{
+          "imageUrl":productImage.asset->url,
+          "subImage":subImages[].asset->url,
+          "title":title,
+          "subTitle":subTitle,
+          "slug":slug.current,
+          "author":auther
+        }
+        `
+      )
+      .then((result) => setData(result))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+  console.log(data);
   return (
     <>
       <section className="layout-pt-md layout-pb-xl">
@@ -192,99 +214,6 @@ export default function BlogSingle() {
                   </div>
                 </div>
               </div>
-
-              <div className="line mt-60 mb-30"></div>
-
-              <div className="row y-gap-20">
-                <div className="col-auto">
-                  <Image
-                    width={70}
-                    height={70}
-                    src="/img/blogSingle/3.png"
-                    alt="image"
-                  />
-                </div>
-
-                <div className="col">
-                  <div className="text-18 fw-500">Brooklyn Simmons</div>
-                  <div className="lh-15">Medical Assistant</div>
-                  <div className="mt-20">
-                    Etiam vitae leo et diam pellentesque porta. Sed eleifend
-                    ultricies risus, vel rutrum erat commodo ut. Praesent
-                    finibus congue euismod. Nullam scelerisque massa vel augue
-                    placerat, a tempor sem egestas. Curabitur placerat finibus
-                    lacus.
-                  </div>
-                </div>
-              </div>
-
-              <div className="line mt-30 mb-30"></div>
-
-              <div className="row y-gap-15 justify-between">
-                <div className="col-md-auto">
-                  <div className="d-flex">
-                    <div className="pt-5">
-                      <i className="icon-arrow-left text-16"></i>
-                    </div>
-                    <div className="ml-20">
-                      <div className="text-18 fw-500">Prev</div>
-                      <div className="mt-5">
-                        5 awesome steps to get rid of
-                        <br /> stress and routine
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-auto md:d-none">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect width="4" height="4" fill="#05073C" />
-                    <rect y="8" width="4" height="4" fill="#05073C" />
-                    <rect y="16" width="4" height="4" fill="#05073C" />
-                    <rect x="8" width="4" height="4" fill="#05073C" />
-                    <rect x="8" y="8" width="4" height="4" fill="#05073C" />
-                    <rect x="8" y="16" width="4" height="4" fill="#05073C" />
-                    <rect x="16" width="4" height="4" fill="#05073C" />
-                    <rect x="16" y="8" width="4" height="4" fill="#05073C" />
-                    <rect x="16" y="16" width="4" height="4" fill="#05073C" />
-                  </svg>
-                </div>
-
-                <div className="col-md-auto">
-                  <div className="d-flex text-right md:text-left">
-                    <div className="mr-20">
-                      <div className="text-18 fw-500">Next</div>
-                      <div className="mt-5">
-                        Happy clients leave positive
-                        <br />
-                        feedback less often
-                      </div>
-                    </div>
-                    <div className="pt-5">
-                      <i className="icon-arrow-right text-16"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="line mt-30 mb-30"></div>
-
-              <h2 className="text-30 mt-30">Customer Reviews</h2>
-
-              <Reviews />
-
-              <button className="button -md -outline-accent-1 text-accent-1 mt-30">
-                See more reviews
-                <i className="icon-arrow-top-right text-16 ml-10"></i>
-              </button>
-
-              <CommentBox />
             </div>
           </div>
         </div>

@@ -1,9 +1,22 @@
+"use client";
+
 import { destinationsThree } from "@/data/destinations";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import client from "@/public/api/client";
 
 export default function TopAttractions() {
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    client
+      .fetch(
+        '*[_type == "HomeSlider"] {"imageUrl": sliderImage.asset->url,"title":sliderTitle,"miniTitle":sliderMiniTitle}'
+      )
+      .then((result) => setData(result))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
   return (
     <section className="layout-pt-xl layout-pb-xl">
       <div className="container">
@@ -13,9 +26,8 @@ export default function TopAttractions() {
               Үзэсгэлэнт газрууд
             </h2>
           </div>
-
           <div className="col-auto">
-            <Link
+            {/* <Link
               href={"/tour-list-1"}
               data-aos="fade-right"
               data-aos-delay=""
@@ -23,10 +35,9 @@ export default function TopAttractions() {
             >
               <span>Бүгдийг харах</span>
               <i className="icon-arrow-top-right text-16 ml-10"></i>
-            </Link>
+            </Link> */}
           </div>
         </div>
-
         <div
           data-aos="fade-up"
           data-aos-delay=""
@@ -40,14 +51,12 @@ export default function TopAttractions() {
               >
                 <div className="size-100 relative rounded-12 -hover-image-scale__image">
                   <Image
-                    width={100}
-                    height={100}
+                    layout="fill"
                     src={elm.imgSrc}
                     alt="image"
                     className="img-ratio rounded-12"
                   />
                 </div>
-
                 <div className="ml-30">
                   <h3 className="text-18 fw-500">{elm.title}</h3>
                   <p className="text-14">{elm.tours}+ Аялалууд</p>

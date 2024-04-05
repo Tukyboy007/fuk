@@ -50,18 +50,21 @@ export const featuresTwo = [
     iconSrc: "/img/icons/2/1.svg",
     value: "240",
     label: "Аялалын хөтөлбөр",
+    prop: "products",
   },
   {
     id: 2,
     iconSrc: "/img/icons/2/2.svg",
     value: "3672",
     label: "Аялагчид",
+    prop: "users",
   },
   {
     id: 3,
     iconSrc: "/img/icons/2/3.svg",
     value: "410",
     label: "Аялалын маршрут",
+    prop: "routes",
   },
 ];
 

@@ -1,11 +1,28 @@
 "use client";
-
+import { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { useEffect, useState } from "react";
 import { testimonialsOne } from "@/data/testimonials";
 import Image from "next/image";
+import client from "@/public/api/client";
+
 export default function TestimonialOne() {
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type == "Reviews"]{
+          "imageUrl":image.asset->url,
+          "title":title,
+          "name":name,
+          "lorem":lorem,
+          "profession":profession,
+        }`
+      )
+      .then((result) => setData(result))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
   return (
     <section className="relative layout-pt-xl layout-pb-xl font">
       <div className="sectionBg md:d-none">
@@ -62,50 +79,51 @@ export default function TestimonialOne() {
                     },
                   }}
                 >
-                  {testimonialsOne.map((elm, i) => (
-                    <SwiperSlide key={i}>
-                      <div className="testimonials -type-1 pt-10 text-center">
-                        <div className="testimonials__image size-100 rounded-full">
-                          <Image
-                            width={98}
-                            height={98}
-                            src={elm.imageSrc}
-                            alt="image"
-                          />
-
-                          <div className="testimonials__icon">
-                            <svg
-                              width="16"
-                              height="13"
-                              viewBox="0 0 16 13"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M13.3165 0.838867C12.1013 1.81846 10.9367 3.43478 9.77215 5.63887C8.65823 7.84295 8 10.2429 7.8481 12.8389H12.4557C12.4051 8.87152 13.6203 5.24703 16 1.91642L13.3165 0.838867ZM5.51899 0.838867C4.25316 1.81846 3.08861 3.43478 1.92405 5.63887C0.810126 7.84295 0.151899 10.2429 0 12.8389H4.60759C4.55696 8.87152 5.77215 5.19805 8.20253 1.91642L5.51899 0.838867Z"
-                                fill="white"
+                  {data != "" && data != undefined
+                    ? data.map((elm, i) => (
+                        <SwiperSlide key={i}>
+                          <div className="testimonials -type-1 pt-10 text-center">
+                            <div className="testimonials__image size-100 rounded-full">
+                              <Image
+                                layout="fill"
+                                src={elm.imageUrl}
+                                alt="image"
                               />
-                            </svg>
+
+                              <div className="testimonials__icon">
+                                <svg
+                                  width="16"
+                                  height="13"
+                                  viewBox="0 0 16 13"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M13.3165 0.838867C12.1013 1.81846 10.9367 3.43478 9.77215 5.63887C8.65823 7.84295 8 10.2429 7.8481 12.8389H12.4557C12.4051 8.87152 13.6203 5.24703 16 1.91642L13.3165 0.838867ZM5.51899 0.838867C4.25316 1.81846 3.08861 3.43478 1.92405 5.63887C0.810126 7.84295 0.151899 10.2429 0 12.8389H4.60759C4.55696 8.87152 5.77215 5.19805 8.20253 1.91642L5.51899 0.838867Z"
+                                    fill="white"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+
+                            <div className="text-18 fw-500 text-accent-1 mt-60 md:mt-40">
+                              {elm.title}
+                            </div>
+
+                            <div className="text-20 fw-500 mt-20">
+                              {elm.lorem}
+                            </div>
+
+                            <div className="mt-20 md:mt-40">
+                              <div className="lh-16 text-16 fw-500">
+                                {elm.name}
+                              </div>
+                              <div className="lh-16">{elm.profession}</div>
+                            </div>
                           </div>
-                        </div>
-
-                        <div className="text-18 fw-500 text-accent-1 mt-60 md:mt-40">
-                          {elm.title}
-                        </div>
-
-                        <div className="text-20 fw-500 mt-20">
-                          {elm.content}
-                        </div>
-
-                        <div className="mt-20 md:mt-40">
-                          <div className="lh-16 text-16 fw-500">
-                            {elm.authorName}
-                          </div>
-                          <div className="lh-16">{elm.authorRole}</div>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  ))}
+                        </SwiperSlide>
+                      ))
+                    : ""}
                 </Swiper>
               </div>
 

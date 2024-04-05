@@ -18,7 +18,7 @@ export default function SingleOne({ tour }) {
     <>
       <section className="">
         <div className="container">
-          <MainInformation tour={tour} />
+          {/* <MainInformation tour={tour} /> */}
           <Gallery1 />
         </div>
       </section>

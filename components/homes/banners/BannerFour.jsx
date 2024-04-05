@@ -6,9 +6,8 @@ export default function BannerFour() {
     <section className="layout-pt-xxl layout-pb-xxl relative">
       <div className="sectionBg">
         <Image
-          src="/img/cta/3/1.png"
-          width={1920}
-          height={700}
+          src="/img/cta/3/1.jpg"
+          layout="fill"
           alt="image"
           className="img-ratio"
         />

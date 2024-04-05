@@ -1,9 +1,30 @@
+"use client";
+
 import { featuresTwo } from "@/data/features";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import client from "@/public/api/client";
 
 export default function FeturesTwo() {
+  const [data, setData] = useState("");
+  const [values, setValues] = useState([]);
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type == "NumberInformation"]{
+         "products":products,
+          "users":users,
+          "routes":routes
+       }`
+      )
+      .then((result) => setData(result))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+  const valuesArray = [];
+  data != "" && data != undefined ? valuesArray.push(data[0].products) : "";
+  data != "" && data != undefined ? valuesArray.push(data[0].users) : "";
+  data != "" && data != undefined ? valuesArray.push(data[0].routes) : "";
   return (
     <section className="relative font">
       <div className="relative xl:unset container">
@@ -64,7 +85,7 @@ export default function FeturesTwo() {
                       alt="icon"
                     />
                     <div className="text-40 fw-700 text-accent-1 mt-20 lh-14">
-                      {elm.value}
+                      {valuesArray[i]}
                     </div>
                     <div>{elm.label}</div>
                   </div>
