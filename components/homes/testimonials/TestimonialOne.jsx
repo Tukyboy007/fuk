@@ -6,7 +6,7 @@ import { testimonialsOne } from "@/data/testimonials";
 import Image from "next/image";
 import client from "@/public/api/client";
 
-export default function TestimonialOne() {
+export default function TestimonialOne({ lang }) {
   const [data, setData] = useState("");
 
   useEffect(() => {
@@ -15,9 +15,13 @@ export default function TestimonialOne() {
         `*[_type == "Reviews"]{
           "imageUrl":image.asset->url,
           "title":title,
+          "titleEn":titleEn,
           "name":name,
+          "nameEn":"nameEn",
           "lorem":lorem,
+          "loremEn":loremEn,
           "profession":profession,
+          "professionEn":professionEn,
         }`
       )
       .then((result) => setData(result))
@@ -42,7 +46,7 @@ export default function TestimonialOne() {
               data-aos-delay=""
               className="text-30 md:text-24"
             >
-              Аялагчдын сэтгэгдэл
+              {lang == "mn" ? "lang Аялагчдын сэтгэгдэл" : "Travelers Reviews"}
             </h2>
           </div>
         </div>
@@ -107,18 +111,22 @@ export default function TestimonialOne() {
                             </div>
 
                             <div className="text-18 fw-500 text-accent-1 mt-60 md:mt-40">
-                              {elm.title}
+                              {lang == "mn" ? elm.title : elm.titleEn}
                             </div>
 
                             <div className="text-20 fw-500 mt-20">
-                              {elm.lorem}
+                              {lang == "mn" ? elm.lorem : elm.loremEn}
                             </div>
 
                             <div className="mt-20 md:mt-40">
                               <div className="lh-16 text-16 fw-500">
                                 {elm.name}
                               </div>
-                              <div className="lh-16">{elm.profession}</div>
+                              <div className="lh-16">
+                                {lang == "mn"
+                                  ? elm.profession
+                                  : elm.professionEn}
+                              </div>
                             </div>
                           </div>
                         </SwiperSlide>

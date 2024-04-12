@@ -6,14 +6,16 @@ import { clients } from "@/data/clients";
 import Image from "next/image";
 import React from "react";
 
-export default function BrandsOne() {
+export default function BrandsOne({ lang }) {
   return (
     <section className="layout-pt-xl layout-pb-xl font">
       <div className="container">
         <div className="row justify-center text-center">
           <div className="col-auto">
             <h2 data-aos="fade-up" data-aos-delay="" className="text-30">
-              Бидэнтэй хамтраг байгуулагууд
+              {lang == "mn"
+                ? "Бидэнтэй хамтраг байгуулагууд"
+                : "Sponsored Company"}
             </h2>
           </div>
         </div>

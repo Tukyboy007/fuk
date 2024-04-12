@@ -2,9 +2,9 @@
 
 import SingleOne from "@/components/tourSingle/pages/SingleOne";
 import FooterTwo from "@/components/layout/footers/FooterTwo";
-import Header1 from "@/components/layout/header/Header1";
+import Header2 from "@/components/layout/header/Header2";
 import PageHeader from "@/components/tourSingle/PageHeader";
-import TourSlider from "@/components/tourSingle/TourSlider";
+import TourSlider2 from "@/components/homes/tours/TourSlider2";
 import React, { useEffect, useState } from "react";
 // Import any other necessary components
 
@@ -19,7 +19,6 @@ async function getData(slug) {
     "slug":slug.current,
     "image":productImage[].asset->url
     }
-    
     `);
     return result;
   } catch (error) {
@@ -29,23 +28,22 @@ async function getData(slug) {
 }
 
 export default function Page({ params }) {
+  const [lang, setLang] = useState("en");
   const [data, setData] = useState("");
-  const { slug } = params; // Destructure slug from params
+  const { slug } = params;
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getData(slug);
-      console.log(data);
+      setData(await getData(slug));
     };
     fetchData();
-  }, [slug]); // Make useEffect depend on slug
-
+  }, [slug]);
   return (
     <>
       <main>
-        <Header1 />
+        <Header2 lang={lang} setLang={setLang} />
         <PageHeader />
-        <SingleOne tour={data} />
-        <TourSlider />
+        <SingleOne slug={params.slug} />
+        <TourSlider2 />
         <FooterTwo />
       </main>
     </>

@@ -29,16 +29,14 @@ async function getData(slug) {
 }
 
 export default function page({ params }) {
-  console.log(params.slug);
+  const [lang, setLang] = useState("en");
   const id = params.id;
   const blog = blogs.find((item) => item.id == id) || blogs[0];
 
-  const [data, setData] = useState("");
   const { slug } = params; // Destructure slug from params
   useEffect(() => {
     const fetchData = async () => {
       const data = await getData(params.slug);
-      console.log(data);
     };
     fetchData();
   }, [slug]); // Make useEffect depend on slug
@@ -46,7 +44,7 @@ export default function page({ params }) {
   return (
     <>
       <main>
-        <Header2 />
+        <Header2 lang={lang} setLang={setLang} />
         <Hero1 slug={params.slug} />
         <BlogSingle slug={params.slug} />
         <FooterTwo />

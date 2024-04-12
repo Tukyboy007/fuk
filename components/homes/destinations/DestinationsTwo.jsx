@@ -6,7 +6,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import client from "@/public/api/client";
 
-export default function DestinationsTwo() {
+export default function DestinationsTwo({ lang }) {
   const [data, setData] = useState("");
   useEffect(() => {
     client
@@ -14,7 +14,8 @@ export default function DestinationsTwo() {
         `*[_type == "PlanedRoutes"]{
           "imageUrl":productImage.asset->url,
           "location":location,
-          "products":products
+          "products":products,
+          "locationEn":locationEn,
         }`
       )
       .then((result) => setData(result))
@@ -26,7 +27,7 @@ export default function DestinationsTwo() {
         <div className="row y-gap-10 justify-between items-end">
           <div className="col-auto">
             <h2 data-aos="fade-up" data-aos-delay="" className="text-30">
-              Төлөвлөгдсөн аялалууд
+              {lang == "mn" ? "Төлөвлөгдсөн аялалууд" : "Planed Travels"}
             </h2>
           </div>
         </div>
@@ -50,8 +51,12 @@ export default function DestinationsTwo() {
                       />
                     </div>
 
-                    <h3 className="text-18 fw-500 mt-20">{elm.location}</h3>
-                    <p className="text-14">{elm.products}+ Аялалууд</p>
+                    <h3 className="text-18 fw-500 mt-20">
+                      {lang == "mn" ? elm.location : elm.locationEn}{" "}
+                    </h3>
+                    <p className="text-14">
+                      {elm.products}+ {lang == "mn" ? "Аялалууд" : "Travels"}
+                    </p>
                   </Link>
                 </div>
               ))

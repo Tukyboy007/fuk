@@ -1,3 +1,5 @@
+"use client";
+
 import ArticlesOne from "@/components/homes/articles/ArticlesOne";
 import BannerFour from "@/components/homes/banners/BannerFour";
 import BannerTwo from "@/components/homes/banners/BannerTwo";
@@ -12,33 +14,30 @@ import TestimonialOne from "@/components/homes/testimonials/TestimonialOne";
 import TourSlider2 from "@/components/homes/tours/TourSlider2";
 import FooterTwo from "@/components/layout/footers/FooterTwo";
 import Header2 from "@/components/layout/header/Header2";
-import React from "react";
-
-export const metadata = {
-  title: "Home-2 || ViaTour - Travel & Tour React NextJS Template",
-  description: "ViaTour - Travel & Tour React NextJS Template",
-};
+import React, { useState, useEffect } from "react";
+import { set } from "sanity";
 
 export default function page() {
+  const [lang, setLang] = useState("en");
   return (
     <>
       <main>
-        <Header2 />
-        <Hero2 />
-        <OfferDestinations />
-        <TourSlider2 />
-        <FeturesTwo />
-        <DestinationsTwo />
-        <BannerTwo />
-        <TopAttractions />
+        <Header2 lang={lang} setLang={setLang} />
+        <Hero2 lang={lang} />
+        <OfferDestinations lang={lang} />
+        <TourSlider2 lang={lang} />
+        <FeturesTwo lang={lang} />
+        <DestinationsTwo lang={lang} />
+        <BannerTwo lang={lang} />
+        <TopAttractions lang={lang} />
         <div className="bg-accent-1-05">
-          <TestimonialOne />
+          <TestimonialOne lang={lang} />
         </div>
-        <BannerFour />
-        <FeaturesThree />
-        <ArticlesOne />
-        <BrandsOne />
-        <FooterTwo />
+        <BannerFour lang={lang} />
+        <FeaturesThree lang={lang} />
+        <ArticlesOne lang={lang} />
+        <BrandsOne lang={lang} />
+        <FooterTwo lang={lang} />
       </main>
     </>
   );

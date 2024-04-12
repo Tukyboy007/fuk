@@ -9,7 +9,7 @@ import { tourData } from "@/data/tours";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function TourSlider() {
+export default function TourSlider({ lang }) {
   return (
     <section className="layout-pt-xl layout-pb-xl relative font">
       <div className="sectionBg -w-1530 rounded-12 "></div>

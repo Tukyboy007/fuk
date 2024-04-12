@@ -1,3 +1,4 @@
+"use client";
 import ArticlesOne from "@/components/homes/articles/ArticlesOne";
 import SpacialOffer from "@/components/homes/others/SpacialOffer";
 import TestimonialOne from "@/components/homes/testimonials/TestimonialOne";
@@ -6,27 +7,23 @@ import Header2 from "@/components/layout/header/Header2";
 import Hero from "@/components/pages/destinations/Hero";
 import Information from "@/components/pages/destinations/Information";
 import TourList1 from "@/components/pages/destinations/TourList";
-import TourSlider from "@/components/pages/destinations/TourSlider";
-import React from "react";
-
-export const metadata = {
-  title: "Destinations || ViaTour - Travel & Tour React NextJS Template",
-  description: "ViaTour - Travel & Tour React NextJS Template",
-};
+import TourSlider2 from "@/components/homes/tours/TourSlider2";
+import React, { useState } from "react";
 
 export default function page() {
+  const [lang, setLang] = useState("en");
   return (
     <>
       <main>
-        <Header2 />
-        <Hero />
-        <SpacialOffer />
-        <TourSlider />
-        <TourList1 />
-        <TestimonialOne />
-        <Information />
-        <ArticlesOne />
-        <FooterTwo />
+        <Header2 lang={lang} setLang={setLang} />
+        <Hero lang={lang} />
+        <SpacialOffer lang={lang} />
+        <TourSlider2 lang={lang} />
+        <TourList1 lang={lang} />
+        <TestimonialOne lang={lang} />
+        <Information lang={lang} />
+        <ArticlesOne lang={lang} />
+        <FooterTwo lang={lang} />
       </main>
     </>
   );

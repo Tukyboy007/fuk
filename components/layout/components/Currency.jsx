@@ -3,10 +3,16 @@
 import { useState, useEffect, useRef } from "react";
 
 const currencies = ["Монгол", "English"];
+const lan = ["mn", "en"];
 
-export default function Currency({ parentClass }) {
+export default function Currency({ parentClass, setLang }) {
   const [currentdd, setCurrentdd] = useState("");
-  const [selectedCurrency, setSelectedCurrency] = useState("Хэлний сонголт");
+  const ln =
+    typeof window !== "undefined" && localStorage.getItem("lang") != null
+      ? localStorage.getItem("lang")
+      : "en";
+  const initialCurrency = ln === "mn" ? "Хэлний сонголт" : "Language";
+  const [selectedCurrency, setSelectedCurrency] = useState(initialCurrency);
   const dropDownContainer = useRef();
   useEffect(() => {
     const handleClick = (event) => {
@@ -24,6 +30,7 @@ export default function Currency({ parentClass }) {
       document.removeEventListener("click", handleClick);
     };
   }, []);
+
   return (
     <div
       ref={dropDownContainer}
@@ -53,6 +60,8 @@ export default function Currency({ parentClass }) {
                 onClick={() => {
                   setSelectedCurrency(elm);
                   setCurrentdd("");
+                  setLang(lan[i]);
+                  localStorage.setItem("lang", lan[i]);
                 }}
                 key={i}
                 className="headerDropdown__item"

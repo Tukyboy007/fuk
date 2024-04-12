@@ -16,8 +16,18 @@ export const CustomerReviews = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'titleEn',
+      title: 'Гарчиг (En)',
+      type: 'string',
+    }),
+    defineField({
       name: 'lorem',
       title: 'Сэтгэгдэл',
+      type: 'string',
+    }),
+    defineField({
+      name: 'loremEn',
+      title: 'Сэтгэгдэл (En)',
       type: 'string',
     }),
     defineField({
@@ -28,6 +38,11 @@ export const CustomerReviews = defineType({
     defineField({
       name: 'profession',
       title: 'Мэргэжил',
+      type: 'string',
+    }),
+    defineField({
+      name: 'professionEn',
+      title: 'Мэргэжил (En)',
       type: 'string',
     }),
   ],

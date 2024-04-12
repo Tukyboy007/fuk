@@ -13,10 +13,9 @@ export default defineConfig({
   projectId: 'pr9z5y3j',
   dataset: 'production',
 
-  plugins: [structureTool(), visionTool(), ...(isDev ? devOnlyPlugins : [])],
+  plugins: [structureTool(), visionTool(), getStartedPlugin()],
 
   schema: {
     types: schemaTypes,
   },
 })
-

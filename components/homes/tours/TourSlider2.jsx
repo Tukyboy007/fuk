@@ -10,7 +10,7 @@ import Link from "next/link";
 import client from "@/public/api/client";
 
 const travelStayles = ["Fast", "Steady", "Furious", "Grind"];
-export default function TourSlider2() {
+export default function TourSlider2({ lang }) {
   const [ddActive, setDdActive] = useState(false);
   const [travelStyle, setTravelStyle] = useState("");
   const [filtered, setFiltered] = useState(filterTour);
@@ -19,16 +19,20 @@ export default function TourSlider2() {
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "Product" && featured == true]
-        {
-        "title":title,
-        "slug":slug.current,
-        "imageUrl":productImage[].asset->url,
-        "price":price,
-        "route":route,
+        `*[_type == "Product" && featured == true]{
+          "title":title,
+          "titleEn":titleEn,
+          "subTitle":subTitle,
+          "subTitleEn":subTitleEn,
+          "slug":slug.current,
+          "imageUrl":productImage[].asset->url,
+          "price":price,
+          "priceEn":priceEn,
+          "route":route,
+          "routeEn":routeEn,
           "duration":duration,
-        }
-        `
+          "durationEn":durationEn,
+        }`
       )
       .then((result) => setData(result))
       .catch((error) => console.error("Error fetching data:", error));
@@ -36,7 +40,6 @@ export default function TourSlider2() {
   useEffect(() => {
     setFiltered(filterTour);
   }, [travelStyle]);
-
   const dropDownContainer = useRef();
   useEffect(() => {
     const handleClick = (event) => {
@@ -61,7 +64,7 @@ export default function TourSlider2() {
         <div className="row y-gap-10 justify-between items-end y-gap-10">
           <div className="col-auto">
             <h2 data-aos="fade-up" data-aos-delay="" className="text-30">
-              Таньд санал болгох
+              {lang == "mn" ? "Таньд санал болгох" : "Interesting travel"}
             </h2>
           </div>
         </div>
@@ -122,24 +125,27 @@ export default function TourSlider2() {
                           <div className="tourCard__content px-20 py-10">
                             <div className="tourCard__location d-flex items-center text-13 text-light-2">
                               <i className="icon-pin d-flex text-16 text-light-2 mr-5 font">
-                                {elm.route}
+                                {lang == "mn" ? elm.route[0] : elm.routeEn[0]}
                               </i>
                             </div>
 
                             <h3 className="tourCard__title text-16 fw-500 mt-5">
-                              <span>{elm.title}</span>
+                              <span>
+                                {lang == "mn" ? elm.title : elm.titleEn}
+                              </span>
                             </h3>
 
                             <div className="d-flex justify-between items-center border-1-top text-13 text-dark-1 pt-10 mt-10">
                               <div className="d-flex items-center">
                                 <i className="icon-clock text-16 mr-5"></i>
-                                {elm.duration}
+                                {lang == "mn" ? elm.duration : elm.durationEn}
                               </div>
 
                               <div>
-                                Төлбөр{" "}
+                                {lang == "mn" ? "Төлбөр" : "Price"}
                                 <span className="text-16 fw-500">
-                                  ₮{elm.price}
+                                  {lang == "mn" ? "₮" : "$"}
+                                  {lang == "mn" ? elm.price : elm.priceEn}
                                 </span>
                               </div>
                             </div>

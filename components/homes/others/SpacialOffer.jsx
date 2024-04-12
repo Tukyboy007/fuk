@@ -1,9 +1,22 @@
 import { specialOffers } from "@/data/offer";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import client from "@/public/api/client";
 
-export default function SpacialOffer() {
+export default function SpacialOffer({ lang }) {
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type == "TravelMomen"]{
+          "mainImage":TravelMomen.asset->url
+        }`
+      )
+      .then((result) => setData(result))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
   return (
     <section className="layout-pt-xl font">
       <div className="container">
@@ -14,7 +27,7 @@ export default function SpacialOffer() {
               data-aos-delay=""
               className="text-30 md:text-24"
             >
-              Аялалын мөчүүд
+              {lang == "mn" ? "Аялалын мөчүүд" : "Travel Moment"}
             </h2>
           </div>
 
@@ -24,10 +37,7 @@ export default function SpacialOffer() {
               data-aos="fade-left"
               data-aos-delay=""
               className="buttonArrow d-flex items-center "
-            >
-              <span>Бүгдийг үзэх</span>
-              <i className="icon-arrow-top-right text-16 ml-10"></i>
-            </Link>
+            ></Link>
           </div>
         </div>
 
@@ -36,32 +46,36 @@ export default function SpacialOffer() {
           data-aos-delay=""
           className="specialCardGrid row y-gap-30 md:y-gap-20 pt-40 sm:pt-20"
         >
-          {specialOffers.map((elm, i) => (
-            <div key={i} className="col-xl-4 col-lg-6 col-md-6">
-              <div className="specialCard">
-                <div className="specialCard__image">
-                  <Image
-                    width={615}
-                    height={300}
-                    src={elm.imgSrc}
-                    alt="image"
-                  />
-                </div>
+          {data != null && data != ""
+            ? data.map((elm, i) => (
+                <div key={i} className="col-xl-4 col-lg-6 col-md-6">
+                  <div className="specialCard">
+                    <div className="specialCard__image">
+                      <Image
+                        width={615}
+                        height={300}
+                        src={elm.mainImage}
+                        alt="image"
+                      />
+                    </div>
 
-                <div className="specialCard__content">
-                  <div className="specialCard__subtitle">{elm.subtitle}</div>
-                  <h3 className="specialCard__title">
-                    {elm.title.split(" ").slice(0, 3).join(" ")}
-                    <br />
-                    {elm.title.split(" ").slice(3).join(" ")}
-                  </h3>
-                  {elm.text && (
-                    <div className="specialCard__text">{elm.text}</div>
-                  )}
+                    {/* <div className="specialCard__content">
+                      <div className="specialCard__subtitle">
+                        {elm.subtitle}
+                      </div>
+                      <h3 className="specialCard__title">
+                        {elm.title.split(" ").slice(0, 3).join(" ")}
+                        <br />
+                        {elm.title.split(" ").slice(3).join(" ")}
+                      </h3>
+                      {elm.text && (
+                        <div className="specialCard__text">{elm.text}</div>
+                      )}
+                    </div> */}
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              ))
+            : ""}
         </div>
       </div>
     </section>

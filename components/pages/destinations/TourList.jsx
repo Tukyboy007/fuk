@@ -9,7 +9,7 @@ import Image from "next/image";
 import Sidebar2 from "@/components/tours/Sidebar2";
 import Link from "next/link";
 
-export default function TourList1() {
+export default function TourList1({ lang }) {
   const [sortOption, setSortOption] = useState("");
   const [ddActives, setDdActives] = useState(false);
   const [sidebarActive, setSidebarActive] = useState(false);
@@ -35,17 +35,9 @@ export default function TourList1() {
       <div className="container">
         <div className="row y-gap-10 justify-between items-end y-gap-10 mb-50 ">
           <div className="col-auto">
-            <h2 className="text-30">Аялалууд {new Date().getFullYear()}</h2>
-          </div>
-
-          <div className="col-auto">
-            <Link
-              href={"/tour-list-1"}
-              className="buttonArrow d-flex items-center "
-            >
-              <span>Бүгдийг үзэх</span>
-              <i className="icon-arrow-top-right text-16 ml-10"></i>
-            </Link>
+            <h2 className="text-30">
+              {lang == "mn" ? "Аялалууд" : "Tours"} {new Date().getFullYear()}
+            </h2>
           </div>
         </div>
         <div className="row">
@@ -75,7 +67,7 @@ export default function TourList1() {
           <div className="col-xl-9 col-lg-8">
             <div className="row y-gap-5 justify-between">
               <div className="col-auto">
-                <div>25 аялал</div>
+                <div>{lang == "mn" ? "25 аялал" : "25 tours"}</div>
               </div>
 
               <div ref={dropDownContainer} className="col-auto">

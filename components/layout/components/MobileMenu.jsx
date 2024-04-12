@@ -4,15 +4,36 @@ import { menuData } from "@/data/mobileMenu";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
+import Currency from "./Currency";
 const socialMediaLinks = [
   { id: 1, class: "icon-facebook", href: "#" },
   { id: 2, class: "icon-twitter", href: "#" },
   { id: 3, class: "icon-instagram", href: "#" },
   { id: 4, class: "icon-linkedin", href: "#" },
 ];
-export default function MobileMenu({ mobileMenuOpen, setMobileMenuOpen }) {
-  const [activeSub, setActiveSub] = useState("");
-  const pathname = usePathname();
+const en = [
+  ["Tours", "/destinations"],
+  ["About Us", "/about"],
+  ["terms", "/terms"],
+  ["Contact", "/contact"],
+];
+const mn = [
+  ["Аялалууд", "/destinations"],
+  ["Бидний тухай", "/about"],
+  ["Зөвлөмж", "/terms"],
+  ["Бидэнтэй холбогдох", "/contact"],
+];
+export default function MobileMenu({
+  setLang,
+  mobileMenuOpen,
+  setMobileMenuOpen,
+}) {
+  const [lan, setLan] = useState(en);
+  const ln =
+    typeof window !== "undefined" && localStorage.getItem("lang") != null
+      ? localStorage.getItem("lang")
+      : "en";
+  const choose = ln == "en" ? en : mn;
   return (
     <div
       data-aos="fade"
@@ -31,7 +52,7 @@ export default function MobileMenu({ mobileMenuOpen, setMobileMenuOpen }) {
 
       <div className="menu__container">
         <div className="menu__header">
-          <h4>Main Menu</h4>
+          <Currency setLang={setLang} />
 
           <button
             onClick={() => setMobileMenuOpen(false)}
@@ -46,64 +67,18 @@ export default function MobileMenu({ mobileMenuOpen, setMobileMenuOpen }) {
             className="menuNav js-navList -is-active"
             style={{ maxHeight: "calc(100vh - 262px)", overflowY: "auto" }}
           >
-            {menuData.map((elm, i) => (
+            {choose.map((elm, i) => (
               <li key={i} className="menuNav__item -has-submenu js-has-submenu">
-                <a
+                <Link
                   onClick={() =>
                     setActiveSub((pre) => (pre == elm.label ? "" : elm.label))
                   }
+                  href={elm[1]}
                 >
-                  <span
-                    className={
-                      elm.submenu.some(
-                        (elm) =>
-                          elm.href.split("/")[1] == pathname?.split("/")[1]
-                      )
-                        ? "activeMenu"
-                        : ""
-                    }
-                  >
-                    {elm.label}
-                  </span>
-                  <i
-                    style={
-                      activeSub == elm.label
-                        ? { transform: "rotate(90deg)", transition: "0.3s" }
-                        : { transform: "rotate(0deg)", transition: "0.3s" }
-                    }
-                    className="icon-chevron-right"
-                  ></i>
-                </a>
-
-                <ul
-                  style={
-                    activeSub == elm.label
-                      ? { maxHeight: "1200px", transition: "0.6s" }
-                      : { maxHeight: "0px", transition: "0.6s" }
-                  }
-                >
-                  {elm.submenu.map((elm2, i2) => (
-                    <li key={i2} className="">
-                      <Link
-                        className={
-                          pathname.split("/")[1] == elm2.href?.split("/")[1]
-                            ? "activeMenu"
-                            : ""
-                        }
-                        style={{ paddingLeft: "15px", fontSize: "17px" }}
-                        href={elm2.href}
-                      >
-                        {elm2.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                  <span className={""}>{elm[0]}</span>
+                </Link>
               </li>
             ))}
-
-            <li className="menuNav__item">
-              <Link href="/contact">Contact</Link>
-            </li>
           </ul>
         </div>
 

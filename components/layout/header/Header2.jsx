@@ -7,12 +7,11 @@ import MobileMenu from "../components/MobileMenu";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-export default function Header2() {
+export default function Header2({ lang, setLang }) {
   const router = useRouter();
   const pageNavigate = (pageName) => {
     router.push(pageName);
   };
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <>
@@ -38,7 +37,7 @@ export default function Header2() {
               />
             </Link>
 
-            <Menu />
+            <Menu lang={lang} />
           </div>
 
           <div className="headerMobile__right">
@@ -59,7 +58,7 @@ export default function Header2() {
 
           <div className="header__right xl:d-none">
             <div className="ml-30">
-              <Currency />
+              <Currency setLang={setLang} />
             </div>
           </div>
         </div>
@@ -67,6 +66,7 @@ export default function Header2() {
       <MobileMenu
         setMobileMenuOpen={setMobileMenuOpen}
         mobileMenuOpen={mobileMenuOpen}
+        setLang={setLang}
       />
     </>
   );

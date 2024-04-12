@@ -3,25 +3,33 @@ export const features = [
     id: 1,
     iconSrc: "/img/icons/1/ticket.svg",
     title: "Аялалын онцлог",
+    titleEn: "Travel features",
     text: "Түүний товч танилцуулга.",
+    textEn: "Travel introduction.",
   },
   {
     id: 2,
     iconSrc: "/img/icons/1/hot-air-balloon.svg",
     title: "Аялалын онцлог",
+    titleEn: "Travel features",
     text: "Түүний товч танилцуулга.",
+    textEn: "Travel introduction.",
   },
   {
     id: 3,
     iconSrc: "/img/icons/1/diamond.svg",
     title: "Аялалын онцлог",
+    titleEn: "Travel features",
     text: "Түүний товч танилцуулга.",
+    textEn: "Travel introduction.",
   },
   {
     id: 4,
     iconSrc: "/img/icons/1/medal.svg",
     title: "Аялалын онцлог",
+    titleEn: "Travel features",
     text: "Түүний товч танилцуулга.",
+    textEn: "Travel introduction.",
   },
 ];
 export const featuresFour = [
@@ -50,6 +58,7 @@ export const featuresTwo = [
     iconSrc: "/img/icons/2/1.svg",
     value: "240",
     label: "Аялалын хөтөлбөр",
+    labelEn: "Trips",
     prop: "products",
   },
   {
@@ -57,6 +66,7 @@ export const featuresTwo = [
     iconSrc: "/img/icons/2/2.svg",
     value: "3672",
     label: "Аялагчид",
+    labelEn: "Travlers",
     prop: "users",
   },
   {
@@ -64,6 +74,7 @@ export const featuresTwo = [
     iconSrc: "/img/icons/2/3.svg",
     value: "410",
     label: "Аялалын маршрут",
+    labelEn: "Travel Routes",
     prop: "routes",
   },
 ];

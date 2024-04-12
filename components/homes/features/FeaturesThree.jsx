@@ -2,14 +2,14 @@ import { features } from "@/data/features";
 import Image from "next/image";
 import React from "react";
 
-export default function FeaturesThree() {
+export default function FeaturesThree({ lang }) {
   return (
     <section className="layout-pt-xl font">
       <div className="container">
         <div className="row justify-center text-center">
           <div className="col-auto">
             <h2 data-aos="fade-left" data-aos-delay="" className="text-30">
-              Бидний аялалыг сонгосоноор
+              {lang == "mn" ? "Бидний аялалыг сонгосоноор" : "Why choose us?"}
             </h2>
           </div>
         </div>
@@ -27,9 +27,11 @@ export default function FeaturesThree() {
                 </div>
 
                 <h3 className="featureIcon__title text-18 fw-500 mt-30">
-                  {elm.title}
+                  {lang == "mn" ? elm.title : elm.titleEn}
                 </h3>
-                <p className="featureIcon__text mt-10">{elm.text}</p>
+                <p className="featureIcon__text mt-10">
+                  {lang == "mn" ? elm.text : elm.textEn}
+                </p>
               </div>
             </div>
           ))}

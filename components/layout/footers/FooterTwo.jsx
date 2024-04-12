@@ -4,7 +4,7 @@ import FooterLinks from "../components/FooterLinks";
 import Socials from "../components/Socials";
 import Image from "next/image";
 
-export default function FooterTwo() {
+export default function FooterTwo({ lang }) {
   return (
     <footer className="footer -type-1 -dark bg-green-33 text-white font">
       <div className="footer__main">
@@ -28,7 +28,9 @@ export default function FooterTwo() {
 
                   <div className="col-auto">
                     <div className="text-20 fw-500">
-                      Бидэнтэй холбогдох дугаар
+                      {lang == "mn"
+                        ? "Бидэнтэй холбогдох дугаар"
+                        : "Contact Us"}
                       <span className="">+976-991-196-28</span>
                     </div>
                   </div>
@@ -37,7 +39,9 @@ export default function FooterTwo() {
 
               <div className="col-auto">
                 <div className="footerSocials">
-                  <div className="footerSocials__title">Бидэнтэй нэгдэх</div>
+                  <div className="footerSocials__title">
+                    {lang == "mn" ? "Бидэнтэй нэгдэх" : " Subscribe"}
+                  </div>
 
                   <div className="footerSocials__icons">
                     <Socials />
@@ -50,12 +54,16 @@ export default function FooterTwo() {
           <div className="footer__content">
             <div className="row y-gap-40 justify-between">
               <div className="col-lg-4 col-md-6">
-                <h4 className="text-20 fw-500">Холбоо барих</h4>
+                <h4 className="text-20 fw-500">
+                  {lang == "mn" ? "Холбоо барих" : "Phone Number"}
+                </h4>
 
                 <div className="y-gap-10 mt-20">
                   <a className="d-block" href="#">
-                    Монгол улс, Улаанбаатар хот, Чингэлттэй Дүүрэг 25дугаар
-                    хороо.
+                    {lang == "mn"
+                      ? `Монгол улс, Улаанбаатар хот, Чингэлттэй Дүүрэг 25дугаар
+                    хороо.`
+                      : "Mongolia, Ulaanbaatar city, Chinggeltei District 25th khoroo"}
                   </a>
                   <a className="d-block" href="#">
                     AncientMonolgia@gmail.com.com
@@ -63,17 +71,20 @@ export default function FooterTwo() {
                 </div>
               </div>
 
-              <FooterLinks />
+              <FooterLinks lang={lang} />
 
               <div className="col-lg-3 col-md-6">
-                <h4 className="text-20 fw-500">Мэдээ</h4>
-                <p className="mt-20">
-                  Бидний мэдээллийг цаг тухайд нь авахыг хүсвэл!
-                </p>
+                <h4 className="text-20 fw-500">
+                  {lang == "mn" ? "Мэдээ" : "News"}
+                </h4>
+                <p className="mt-20"></p>
 
                 <div className="footer__newsletter">
-                  <input type="Email" placeholder="Таны мэйл хаяг" />
-                  <button>Илгээх</button>
+                  <input
+                    type="Email"
+                    placeholder={lang == "mn" ? "Таны мэйл хаяг" : "Email"}
+                  />
+                  <button>{lang == "mn" ? "Илгээх" : "Submit"}</button>
                 </div>
               </div>
             </div>

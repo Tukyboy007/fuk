@@ -8,7 +8,7 @@ import React from "react";
 import client from "@/public/api/client";
 import { useEffect, useState } from "react";
 
-export default function ArticlesOne() {
+export default function ArticlesOne({ lang }) {
   const [data, setData] = useState("");
 
   useEffect(() => {
@@ -19,16 +19,19 @@ export default function ArticlesOne() {
           "imageUrl":productImage.asset->url,
           "subImage":subImages[].asset->url,
           "title":title,
+          "titleEn":titleEn,
           "subTitle":subTitle,
+          "subTitleEn":subTitleEn,
           "slug":slug.current,
-          "author":auther
+          "author":author,
+          "authorEn":authorEn,
+          
         }
         `
       )
       .then((result) => setData(result))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-  console.log(data);
   return (
     <section className="layout-pt-xl layout-pb-xl font">
       <div className="container">
@@ -39,7 +42,7 @@ export default function ArticlesOne() {
               data-aos-delay=""
               className="text-30 md:text-24 "
             >
-              Мэдээ мэдээлэл
+              {lang == "mn" ? "Мэдээ мэдээлэл" : "Blog Section"}
             </h2>
           </div>
 
@@ -50,7 +53,7 @@ export default function ArticlesOne() {
               data-aos-delay=""
               className="buttonArrow d-flex items-center  "
             >
-              <span>Нийтлэл унших</span>
+              <span>{lang == "mn" ? "Нийтлэл унших" : "See all"}</span>
               <i className="icon-arrow-top-right text-16 ml-10"></i>
             </Link>
           </div>
@@ -82,14 +85,15 @@ export default function ArticlesOne() {
                     <div className="blogCard__content mt-30">
                       <div className="blogCard__info text-14">
                         <div className="lh-13">{elm.date}</div>
-                        <div className="blogCard__line"></div>w
-                        <div className="lh-13">By {elm.author}</div>
+                        <div className="blogCard__line"></div>
+                        <div className="lh-13">
+                          By {lang == "mn" ? elm.author : elm.authorEn}
+                        </div>
                       </div>
 
                       <h3 className="blogCard__title text-18 fw-500 mt-10 text">
-                        {elm.title}
+                        {lang == "mn" ? elm.title : elm.titleEn}
                       </h3>
-                      <div className="lh-13">{elm.continent}</div>
                     </div>
                   </Link>
                 </div>

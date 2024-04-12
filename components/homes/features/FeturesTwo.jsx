@@ -6,7 +6,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import client from "@/public/api/client";
 
-export default function FeturesTwo() {
+export default function FeturesTwo({ lang }) {
   const [data, setData] = useState("");
   const [values, setValues] = useState([]);
   useEffect(() => {
@@ -46,14 +46,16 @@ export default function FeturesTwo() {
                 data-aos-delay=""
                 className="text-40 lh-13"
               >
-                Бид танийг
-                <br className="md:d-none" />
-                Монгол орноор аялах аялалд урьж байна
+                {lang == "mn"
+                  ? `Бид танийг Монгол орноор аялах аялалд урьж байна.`
+                  : "Welcome to Mongolia with ancient history, culture and unique tradition. "}
               </h2>
 
               <p data-aos="fade-up" data-aos-delay="" className="mt-10">
-                Гэр бүл, найз нөхдийн хамтаар өөрийн амьдралд ганц тохиох аз
-                жаргалтай дурсамжийг бүтээх аялалд танийг урьж байна.
+                {lang == "mn"
+                  ? `Гэр бүл, найз нөхдийн хамтаар өөрийн амьдралд ганц тохиох аз
+                жаргалтай дурсамжийг бүтээх аялалд танийг урьж байна`
+                  : `Mongolians are the people with rich and proud history, tradition, culture and also with a combination of breathtaking nature.`}
               </p>
               <button
                 data-aos="fade-right"
@@ -61,7 +63,7 @@ export default function FeturesTwo() {
                 className="button -md -green-4 bg-green-3 text-white mt-60 md:mt-30"
               >
                 <Link href={"/tour-list-1"}>
-                  Аялалууд
+                  {lang == "mn" ? "Аялалууд" : "See all"}
                   <i className="icon-arrow-top-right ml-10"></i>
                 </Link>
               </button>
@@ -87,7 +89,7 @@ export default function FeturesTwo() {
                     <div className="text-40 fw-700 text-accent-1 mt-20 lh-14">
                       {valuesArray[i]}
                     </div>
-                    <div>{elm.label}</div>
+                    <div>{lang == "mn" ? elm.label : elm.labelEn}</div>
                   </div>
                 ))}
               </div>

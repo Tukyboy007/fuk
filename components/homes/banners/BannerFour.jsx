@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-export default function BannerFour() {
+export default function BannerFour({ lang }) {
   return (
     <section className="layout-pt-xxl layout-pb-xxl relative">
       <div className="sectionBg">
@@ -21,16 +21,20 @@ export default function BannerFour() {
               data-aos-delay=""
               className="text-70 md:text-40 sm:text-30 text-white fw-700"
             >
-              Үзэсгэлэнт байгалийн зураг
+              {lang == "mn"
+                ? "Үзэсгэлэнт байгаль"
+                : "Beautiful nature, fun time "}
             </h2>
             <p
               data-aos="fade-up"
               data-aos-delay=""
               className="text-white mt-20"
             >
-              Бид таньд Монгол орны үзэсгэлэнт
-              <br className="md:d-none" /> газраар аялуулах аялалуудыг
-              бэлтгэсэн.
+              {lang == "mn"
+                ? `Бид таньд Монгол орны үзэсгэлэнт
+              ${(<br className="md:d-none" />)} газраар аялуулах аялалуудыг
+              бэлтгэсэн.`
+                : `We are the beauty of Mongolia field trips prepared.`}
             </p>
           </div>
         </div>

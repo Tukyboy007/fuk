@@ -13,13 +13,13 @@ import DateCalender from "../DateCalender";
 import RoadMap2 from "../Roadmap2";
 import CommentBox from "../CommentBox";
 
-export default function SingleOne({ tour }) {
+export default function SingleOne({ slug }) {
   return (
     <>
       <section className="">
         <div className="container">
           {/* <MainInformation tour={tour} /> */}
-          <Gallery1 />
+          <Gallery1 slug={slug} />
         </div>
       </section>
 

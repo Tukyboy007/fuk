@@ -22,13 +22,28 @@ export const Blog = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'titleEn',
+      title: 'Гарчиг (En)',
+      type: 'string',
+    }),
+    defineField({
       name: 'subTitle',
       title: 'Дэд Гарчиг',
       type: 'string',
     }),
     defineField({
+      name: 'subTitleEn',
+      title: 'Дэд Гарчиг (En)',
+      type: 'string',
+    }),
+    defineField({
       name: 'author',
       title: 'Нийтлэлийг бичсэн',
+      type: 'string',
+    }),
+    defineField({
+      name: 'authorEn',
+      title: 'Нийтлэлийг бичсэн (En)',
       type: 'string',
     }),
     defineField({

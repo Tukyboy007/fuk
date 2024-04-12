@@ -17,6 +17,11 @@ export const PlanedRoutes = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'locationEn',
+      title: 'Аялал зохиогдох газар (En)',
+      type: 'string',
+    }),
+    defineField({
       name: 'products',
       title: 'Зохиогдох аялалууд',
       type: 'number',

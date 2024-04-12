@@ -7,7 +7,6 @@ import client from "@/public/api/client";
 export default function BlogSingle({ slug }) {
   const [data, setData] = useState("");
 
-  console.log(slug);
   useEffect(() => {
     client
       .fetch(
@@ -25,7 +24,6 @@ export default function BlogSingle({ slug }) {
       .then((result) => setData(result))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-  console.log(data);
   return (
     <>
       <section className="layout-pt-md layout-pb-xl">

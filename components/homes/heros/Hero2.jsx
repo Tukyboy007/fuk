@@ -6,13 +6,19 @@ import { Navigation, Pagination } from "swiper/modules";
 import Link from "next/link";
 import client from "@/public/api/client";
 
-export default function Hero2() {
+export default function Hero2({ lang }) {
   const [data, setData] = useState("");
 
   useEffect(() => {
     client
       .fetch(
-        '*[_type == "HomeSlider"] {"imageUrl": sliderImage.asset->url,"title":sliderTitle,"miniTitle":sliderMiniTitle}'
+        ` *[_type == "HomeSlider"] {
+          "imageUrl": sliderImage.asset->url,
+          "title":sliderTitle,
+          "titleEn":sliderTitleEn,
+          "miniTitle":sliderMiniTitle,
+          "miniTitleEn":sliderMiniTitleEn
+        }`
       )
       .then((result) => setData(result))
       .catch((error) => console.error("Error fetching data:", error));
@@ -82,7 +88,7 @@ export default function Hero2() {
                               data-aos="fade-up"
                               data-aos-delay="300"
                             >
-                              {elm.title}
+                              {lang == "mn" ? elm.title : elm.titleEn}
                             </h1>
 
                             <p
@@ -90,7 +96,7 @@ export default function Hero2() {
                               data-aos="fade-up"
                               data-aos-delay="350"
                             >
-                              {elm.miniTitle}
+                              {lang == "mn" ? elm.miniTitle : elm.miniTitleEn}
                             </p>
 
                             <button
@@ -99,7 +105,9 @@ export default function Hero2() {
                               className="button -md -green-2 bg-white text-accent-12 mt-30"
                             >
                               <Link href="/tour-list-1">
-                                <span>Дэлгэрэнгүй</span>
+                                <span>
+                                  {lang == "mn" ? "Дэлгэрэнгүй" : "See all"}
+                                </span>
                                 <i className="icon-arrow-top-right ml-10"></i>
                               </Link>
                             </button>

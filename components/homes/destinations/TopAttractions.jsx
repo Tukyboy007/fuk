@@ -6,13 +6,13 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import client from "@/public/api/client";
 
-export default function TopAttractions() {
+export default function TopAttractions({ lang }) {
   const [data, setData] = useState("");
 
   useEffect(() => {
     client
       .fetch(
-        '*[_type == "HomeSlider"] {"imageUrl": sliderImage.asset->url,"title":sliderTitle,"miniTitle":sliderMiniTitle}'
+        '*[_type == "HomeSlider"] {"imageUrl": sliderImage.asset->url,"title":sliderTitle,"miniTitle":sliderMiniTitle, "titleEn" : titleEn}'
       )
       .then((result) => setData(result))
       .catch((error) => console.error("Error fetching data:", error));
@@ -23,7 +23,7 @@ export default function TopAttractions() {
         <div className="row y-gap-10 justify-between items-end">
           <div className="col-auto">
             <h2 data-aos="fade-up" data-aos-delay="" className="text-30">
-              Үзэсгэлэнт газрууд
+              {lang == "mn" ? "Үзэсгэлэнт газрууд" : "Top routes"}
             </h2>
           </div>
           <div className="col-auto">
@@ -58,8 +58,12 @@ export default function TopAttractions() {
                   />
                 </div>
                 <div className="ml-30">
-                  <h3 className="text-18 fw-500">{elm.title}</h3>
-                  <p className="text-14">{elm.tours}+ Аялалууд</p>
+                  <h3 className="text-18 fw-500">
+                    {lang == "mn" ? elm.title : elm.titleEn}
+                  </h3>
+                  <p className="text-14">
+                    {elm.tours}+ {lang == "mn" ? "Аялалууд" : "Travels"}
+                  </p>
                 </div>
               </Link>
             </div>

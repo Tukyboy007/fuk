@@ -7,7 +7,6 @@ import client from "@/public/api/client";
 export default function Hero1({ slug }) {
   const [data, setData] = useState("");
 
-  console.log(slug);
   useEffect(() => {
     client
       .fetch(
@@ -25,7 +24,6 @@ export default function Hero1({ slug }) {
       .then((result) => setData(result))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-  console.log(data);
   if (data != "")
     return (
       <section className="hero -type-1 -min-2">
