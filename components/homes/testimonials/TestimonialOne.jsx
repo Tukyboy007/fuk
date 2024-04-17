@@ -46,7 +46,7 @@ export default function TestimonialOne({ lang }) {
               data-aos-delay=""
               className="text-30 md:text-24"
             >
-              {lang == "mn" ? "lang Аялагчдын сэтгэгдэл" : "Travelers Reviews"}
+              {lang == "mn" ? "Аялагчдын сэтгэгдэл" : "Travelers Reviews"}
             </h2>
           </div>
         </div>
