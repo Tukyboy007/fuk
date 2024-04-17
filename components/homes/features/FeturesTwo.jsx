@@ -33,10 +33,11 @@ export default function FeturesTwo({ lang }) {
             <Image
               width={1290}
               height={630}
-              src="/img/about/1/2.png"
+              src="/img/about/1/2.jpg"
               alt="image"
               className="img-ratio rounded-12 md:rounded-0"
             />
+            <div className="opacity"></div>
           </div>
 
           <div className="row y-gap-30 justify-center items-center">

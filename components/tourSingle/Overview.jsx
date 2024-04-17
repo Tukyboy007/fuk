@@ -1,31 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import client from "@/public/api/client";
 
-export default function Overview() {
-  return (
-    <>
-      <h2 className="text-30">Tour Overview</h2>
-      <p className="mt-20">
-        The Phi Phi archipelago is a must-visit while in Phuket, and this
-        speedboat trip whisks you around the islands in one day. Swim over the
-        coral reefs of Pileh Lagoon, have lunch at Phi Phi Leh, snorkel at
-        Bamboo Island, and visit Monkey Beach and Maya Bay, immortalized in "The
-        Beach." Boat transfers, snacks, buffet lunch, snorkeling equipment, and
-        Phuket hotel pickup and drop-off all included.
-      </p>
+export default function Overview({ slug, lang }) {
+  const [data, setData] = useState("");
+  useEffect(() => {
+    client
+      .fetch(
+        `
+        *[_type == "Product" && slug.current == '${slug}']
+        {
+          "overview":overview,
+          "overviewEn":overviewEn,
+          "highlight":highlights,
+          "highlightEn":highlightsEn
+        }
+        `
+      )
+      .then((result) => setData(result))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+  const datas = data != null && data != "" ? data[0] : "";
+  if (datas != "" && datas != null)
+    return (
+      <>
+        <h2 className="text-30">
+          {lang == "en" ? "Tour Overview" : "Аялалын танилцуулга"}
+        </h2>
+        <p className="mt-20">
+          {lang == "en" ? datas.overviewEn : datas.overview}
+        </p>
 
-      <h3 className="text-20 fw-500 mt-20">Tour Highlights</h3>
-      <ul className="ulList mt-20">
-        <li>
-          Experience the thrill of a speedboat to the stunning Phi Phi Islands
-        </li>
-        <li>Be amazed by the variety of marine life in the archepelago</li>
-        <li>
-          Enjoy relaxing in paradise with white sand beaches and azure turquoise
-          water
-        </li>
-        <li>Feel the comfort of a tour limited to 35 passengers</li>
-        <li>Catch a glimpse of the wild monkeys around Monkey Beach</li>
-      </ul>
-    </>
-  );
+        <h3 className="text-20 fw-500 mt-20">
+          {lang == "en" ? "Tour Highlights" : "Аялалын Онцлог"}
+        </h3>
+        <ul className="ulList mt-20">
+          {lang == "en"
+            ? datas.highlightEn.map((e, index) => <li>{e}</li>)
+            : datas.highlight.map((e, index) => <li>{e}</li>)}
+        </ul>
+      </>
+    );
 }

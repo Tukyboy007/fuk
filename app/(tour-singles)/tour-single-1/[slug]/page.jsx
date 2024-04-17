@@ -42,7 +42,7 @@ export default function Page({ params }) {
       <main>
         <Header2 lang={lang} setLang={setLang} />
         <PageHeader />
-        <SingleOne slug={params.slug} />
+        <SingleOne slug={params.slug} lang={lang} />
         <TourSlider2 />
         <FooterTwo />
       </main>

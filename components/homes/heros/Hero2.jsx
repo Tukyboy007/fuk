@@ -24,7 +24,7 @@ export default function Hero2({ lang }) {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
   return (
-    <section className="hero -type-2">
+    <section className="hero -type-2 ">
       <div className="hero__shape">
         <svg
           width="1920"
@@ -45,9 +45,9 @@ export default function Hero2({ lang }) {
         <div className="hero__slider">
           <div className="hero__bg ">
             <Image
-              width={973}
-              height={500}
-              src="/img/hero/2/bg.png"
+              width={900}
+              height={700}
+              src="/img/hero/2/newbg.jpg"
               alt="image"
             />
           </div>
@@ -118,7 +118,7 @@ export default function Hero2({ lang }) {
                               <Image
                                 width="40"
                                 height="500"
-                                src="/img/hero/2/shape.svg"
+                                src="/img/hero/2/shape.png"
                                 alt="image"
                               />
                             </div>

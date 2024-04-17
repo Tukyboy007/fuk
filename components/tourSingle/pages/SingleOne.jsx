@@ -13,7 +13,7 @@ import DateCalender from "../DateCalender";
 import RoadMap2 from "../Roadmap2";
 import CommentBox from "../CommentBox";
 
-export default function SingleOne({ slug }) {
+export default function SingleOne({ slug, lang }) {
   return (
     <>
       <section className="">
@@ -28,34 +28,42 @@ export default function SingleOne({ slug }) {
           <div className="row y-gap-30 justify-between">
             <div className="col-lg-8">
               <div className="row y-gap-20 justify-between items-center layout-pb-md">
-                <OthersInformation />
+                <OthersInformation slug={slug} lang={lang} />
               </div>
 
-              <Overview />
+              <Overview slug={slug} lang={lang} />
 
               <div className="line mt-60 mb-60"></div>
 
-              <h2 className="text-30">What's included</h2>
+              <h2 className="text-30">
+                {lang == "en" ? "What's included" : " Аялалд багтсан зүйлс"}
+              </h2>
 
-              <Included />
-
-              <div className="line mt-60 mb-60"></div>
-
-              <h2 className="text-30">Аялалын маршрут</h2>
-
-              <RoadMap2 />
+              <Included slug={slug} lang={lang} />
 
               <div className="line mt-60 mb-60"></div>
 
-              <h2 className="text-30">Аялалын хугацаа</h2>
-              <DateCalender />
+              <h2 className="text-30">
+                {lang == "en" ? "Tour routes" : "Аялалын маршрут"}
+              </h2>
+
+              <RoadMap2 slug={slug} lang={lang} />
 
               <div className="line mt-60 mb-60"></div>
 
-              <h2 className="text-30">Түгээмэл асуулт</h2>
+              <h2 className="text-30">
+                {lang == "en" ? "Tour duration" : "Аялалын хугацаа"}
+              </h2>
+              <DateCalender slug={slug} lang={lang} />
+
+              <div className="line mt-60 mb-60"></div>
+
+              <h2 className="text-30">
+                {lang == "en" ? "Faq" : "Түгээмэл асуултууд"}
+              </h2>
 
               <div className="accordion -simple row y-gap-20 mt-30 js-accordion">
-                <Faq />
+                <Faq slug={slug} lang={lang} />
               </div>
 
               <div className="line mt-60 mb-60"></div>
@@ -63,7 +71,7 @@ export default function SingleOne({ slug }) {
 
             <div className="col-lg-4">
               <div className="d-flex justify-end js-pin-content">
-                <TourSingleSidebar />
+                <TourSingleSidebar slug={slug} />
               </div>
             </div>
           </div>

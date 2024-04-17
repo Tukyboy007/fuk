@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function FooterTwo({ lang }) {
   return (
-    <footer className="footer -type-1 -dark bg-green-33 text-white font">
+    <footer className="footer -type-1 -dark bg-green-33 text-white font down">
       <div className="footer__main">
         <div className="footer__bg">
           <Image

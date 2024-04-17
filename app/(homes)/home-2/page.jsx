@@ -15,6 +15,7 @@ import TourSlider2 from "@/components/homes/tours/TourSlider2";
 import FooterTwo from "@/components/layout/footers/FooterTwo";
 import Header2 from "@/components/layout/header/Header2";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { set } from "sanity";
 
 export default function page() {
@@ -24,17 +25,33 @@ export default function page() {
       <main>
         <Header2 lang={lang} setLang={setLang} />
         <Hero2 lang={lang} />
-        <OfferDestinations lang={lang} />
+        {/* <OfferDestinations lang={lang} /> */}
         <TourSlider2 lang={lang} />
         <FeturesTwo lang={lang} />
         <DestinationsTwo lang={lang} />
-        <BannerTwo lang={lang} />
+        <BannerTwo lang={lang} />{" "}
+        <div className="background zindex1">
+          <Image
+            width="920"
+            height="700"
+            src="/img/general/backroud.jpg"
+            alt="image"
+          />
+        </div>
         <TopAttractions lang={lang} />
-        <div className="bg-accent-1-05">
+        <div className="bg-accent-1-05 zindex2">
           <TestimonialOne lang={lang} />
         </div>
         <BannerFour lang={lang} />
         <FeaturesThree lang={lang} />
+        <div className="background zindex1">
+          <Image
+            width="920"
+            height="700"
+            src="/img/general/backroud.jpg"
+            alt="image"
+          />
+        </div>
         <ArticlesOne lang={lang} />
         <BrandsOne lang={lang} />
         <FooterTwo lang={lang} />

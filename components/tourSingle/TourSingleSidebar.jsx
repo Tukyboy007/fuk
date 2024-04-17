@@ -4,8 +4,12 @@ import React, { useEffect, useState } from "react";
 import Calender from "../common/dropdownSearch/Calender";
 import Image from "next/image";
 import { times } from "@/data/tourSingleContent";
+import Link from "next/link";
 
-export default function TourSingleSidebar() {
+export default function TourSingleSidebar({ slug }) {
+  const dataToSend = {
+    slug: slug,
+  };
   const prices = {
     adultPrice: 94,
     youthPrice: 84,
@@ -131,10 +135,15 @@ export default function TourSingleSidebar() {
         </div>
       </div>
 
-      <button className="button -md -dark-1 col-12 bg-accent-1 text-white mt-20">
-        Захиалах
-        <i className="icon-arrow-top-right ml-10"></i>
-      </button>
+      <Link href="/booking-pages">
+        <button
+          className="button -md -dark-1 col-12 bg-accent-1 text-white mt-20"
+          onClick={() => localStorage.setItem("buyItem", slug)}
+        >
+          Захиалах
+          <i className="icon-arrow-top-right ml-10"></i>
+        </button>
+      </Link>
     </div>
   );
 }

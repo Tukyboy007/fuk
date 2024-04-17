@@ -31,7 +31,7 @@ export default function Header2({ lang, setLang }) {
               <Image
                 width="90"
                 height="12"
-                src="/img/general/logo-1.svg"
+                src="/img/general/logo3.png"
                 alt="logo icon"
                 priority
               />

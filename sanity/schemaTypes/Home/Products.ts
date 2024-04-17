@@ -94,6 +94,24 @@ export const Products = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'datestart',
+      title: 'Эхлэх хугацаа',
+      type: 'date',
+      options: {
+        dateFormat: 'YYYY-MM-DD',
+        calendarTodayLabel: 'Today',
+      },
+    }),
+    defineField({
+      name: 'dateend',
+      title: 'Дуусах хугацаа',
+      type: 'date',
+      options: {
+        dateFormat: 'YYYY-MM-DD',
+        calendarTodayLabel: 'Today',
+      },
+    }),
+    defineField({
       name: 'price',
       title: 'Төлбөр',
       type: 'number',

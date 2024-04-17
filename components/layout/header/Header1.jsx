@@ -10,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function Header1() {
+export default function Header1({ lang, setLang }) {
   const router = useRouter();
   const pageNavigate = (pageName) => {
     router.push(pageName);
@@ -83,7 +83,7 @@ export default function Header1() {
           <div className="header__right">
             <Destinations />
             <Activities />
-            <Currency />
+            <Currency lang={lang} setLang={setLang} />
 
             <button
               onClick={() => setMobileMenuOpen(true)}
