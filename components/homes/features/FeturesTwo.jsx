@@ -26,7 +26,7 @@ export default function FeturesTwo({ lang }) {
   data != "" && data != undefined ? valuesArray.push(data[0].users) : "";
   data != "" && data != undefined ? valuesArray.push(data[0].routes) : "";
   return (
-    <section className="relative font">
+    <section className="relative font mt-20">
       <div className="relative xl:unset container">
         <div className="layout-pt-xl layout-pb-xl rounded-12">
           <div className="sectionBg">
@@ -37,7 +37,6 @@ export default function FeturesTwo({ lang }) {
               alt="image"
               className="img-ratio rounded-12 md:rounded-0"
             />
-            <div className="opacity"></div>
           </div>
 
           <div className="row y-gap-30 justify-center items-center">
